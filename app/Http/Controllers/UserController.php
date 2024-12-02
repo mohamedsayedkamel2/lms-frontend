@@ -9,15 +9,18 @@ use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
-    public function index(){
+    public function index()
+    {
         return view('frontend.index');
     }
-    public function UserProfile(){
+    public function UserProfile()
+    {
         $id = Auth::user()->id;
         $profileData = User::find($id);
-        return view('frontend.dashboard.edit_profile',compact('profileData'));
+        return view('frontend.dashboard.edit_profile', compact('profileData'));
     }
-    public function UserProfileUpdate(Request $request){
+    public function UserProfileUpdate(Request $request)
+    {
 
         $id = Auth::user()->id;
         $data = User::find($id);
@@ -28,11 +31,11 @@ class UserController extends Controller
         $data->address = $request->address;
 
         if ($request->file('photo')) {
-           $file = $request->file('photo');
-           @unlink(public_path('upload/user_images/'.$data->photo));
-           $filename = date('YmdHi').$file->getClientOriginalName();
-           $file->move(public_path('upload/user_images'),$filename);
-           $data['photo'] = $filename;
+            $file = $request->file('photo');
+            @unlink(public_path('upload/user_images/' . $data->photo));
+            $filename = date('YmdHi') . $file->getClientOriginalName();
+            $file->move(public_path('upload/user_images'), $filename);
+            $data['photo'] = $filename;
         }
 
         $data->save();
@@ -42,9 +45,9 @@ class UserController extends Controller
             'alert-type' => 'success'
         );
         return redirect()->back()->with($notification);
-
-    }// End Method
-    public function UserLogout(Request $request) {
+    } // End Method
+    public function UserLogout(Request $request)
+    {
         Auth::guard('web')->logout();
 
         $request->session()->invalidate();
@@ -59,10 +62,12 @@ class UserController extends Controller
 
         return redirect('/login');
     } // End Method
-    public function UserChangePassword(){
+    public function UserChangePassword()
+    {
         return view('frontend.dashboard.change_password');
     }
-    public function UserPasswordUpdate(Request $request){
+    public function UserPasswordUpdate(Request $request)
+    {
 
         /// Validation
         $request->validate([
@@ -89,6 +94,5 @@ class UserController extends Controller
             'alert-type' => 'success'
         );
         return back()->with($notification);
-
-    }// End Method
+    } // End Method
 }

@@ -12,7 +12,8 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 class AdminController extends Controller
 {
     //
-    public function AdminDashborad(){
+    public function AdminDashborad(Request $request){
+
         return view('admin.index');
     }
     public function AdminLogout(Request $request)

@@ -8,11 +8,13 @@ use App\Http\Controllers\InstructorController;
 use App\Http\Middleware\RedirectIfAuthenticated;
 use App\Http\Controllers\Backend\OrderController;
 use App\Http\Controllers\Frontend\CartController;
+use App\Http\Controllers\Backend\CouponController;
 use App\Http\Controllers\Backend\CourseController;
 use App\Http\Controllers\Backend\ReportController;
 use App\Http\Controllers\Frontend\IndexController;
 use App\Http\Controllers\Backend\SettingController;
 use App\Http\Controllers\Backend\CategoryController;
+use App\Http\Controllers\Backend\QuestionController;
 use App\Http\Controllers\Frontend\WishListController;
 use App\Http\Controllers\Backend\ActiveUserController;
 /*
@@ -156,7 +158,10 @@ Route::controller(CartController::class)->group(function () {
     Route::post('/cart/data/store/{id}', 'AddToCart');
     Route::post('/payment','Payment')->name('payment');
     Route::post('/buy/data/store/{id}', 'BuyToCart');
+    Route::post('/coupon-apply',  'CouponApply');
 
+    Route::get('/coupon-remove',  'CouponRemove');
+    Route::get('/coupon-calculation', 'CouponCalculation');
 });
 
 Route::post('/add-to-wishlist/{course_id}', [WishListController::class, 'AddToWishList']);
@@ -206,5 +211,17 @@ Route::controller(ReportController::class)->group(function(){
 });
 Route::controller(ActiveUserController::class)->group(function(){
     Route::get('/all/user','AllUser')->name('all.user');
-    Route::get('/all/instructor','AllInstructor')->name('all.instructor'); 
+    Route::get('/all/instructor','AllInstructor')->name('all.instructor');
+});
+Route::controller(CouponController::class)->group(function(){
+    Route::get('/admin/all/coupon','AdminAllCoupon')->name('admin.all.coupon');
+    Route::get('/admin/add/coupon','AdminAddCoupon')->name('admin.add.coupon');
+    Route::post('/admin/store/coupon','AdminStoreCoupon')->name('admin.store.coupon');
+    Route::get('/admin/edit/coupon/{id}','AdminEditCoupon')->name('admin.edit.coupon');
+    Route::post('/admin/update/coupon','AdminUpdateCoupon')->name('admin.update.coupon');
+    Route::get('/admin/delete/coupon/{id}','AdminDeleteCoupon')->name('admin.delete.coupon');
+});
+Route::controller(QuestionController::class)->group(function(){
+    Route::post('/user/question','UserQuestion')->name('user.question');
+
 });
