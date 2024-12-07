@@ -140,7 +140,7 @@ Route::controller(IndexController::class)->group(function () {
     Route::get('/category/{id}/{slug}', 'CategoryCourse');
     Route::get('/subcategory/{id}/{slug}', 'SubCategoryCourse');
     Route::get('/instructor/details/{id}', 'InstructorDetails')->name('instructor.details');
-
+    Route::get('/about-us', 'AboutUS')->name('index.about-us');
 
     //post
 });
@@ -150,13 +150,13 @@ Route::controller(CartController::class)->group(function () {
     Route::get('/cart/data/',  'CartData');
     Route::get('/course/mini/cart/',  'AddMiniCart');
     Route::get('/minicart/course/remove/{rowId}', 'RemoveMiniCart');
-    Route::get('/mycart','MyCart')->name('mycart');
+    Route::get('/mycart', 'MyCart')->name('mycart');
     //checkout
     Route::get('/checkout', 'CheckoutCreate')->name('checkout');
 
     //post
     Route::post('/cart/data/store/{id}', 'AddToCart');
-    Route::post('/payment','Payment')->name('payment');
+    Route::post('/payment', 'Payment')->name('payment');
     Route::post('/buy/data/store/{id}', 'BuyToCart');
     Route::post('/coupon-apply',  'CouponApply');
 
@@ -172,56 +172,56 @@ Route::controller(WishListController::class)->group(function () {
     Route::get('/user/wishlist', 'AllWishlist')->name('user.wishlist');
     Route::get('/wishlist-remove/{id}', 'RemoveWishlist');
     Route::get('/get-wishlist-course/', 'GetWishlistCourse');
-    Route::get('/get-cart-course','GetCartCourse');
+    Route::get('/get-cart-course', 'GetCartCourse');
 });
-Route::controller(AdminController::class)->group(function(){
+Route::controller(AdminController::class)->group(function () {
     //get
-    Route::get('/admin/all/course','AdminAllCourse')->name('admin.all.course');
-    Route::get('/admin/course/details/{id}','AdminCourseDetails')->name('admin.course.details');
+    Route::get('/admin/all/course', 'AdminAllCourse')->name('admin.all.course');
+    Route::get('/admin/course/details/{id}', 'AdminCourseDetails')->name('admin.course.details');
     //post
-    Route::post('/update/course/stauts','UpdateCourseStatus')->name('update.course.stauts');
-
-
+    Route::post('/update/course/stauts', 'UpdateCourseStatus')->name('update.course.stauts');
 });
-Route::controller(SettingController::class)->group(function(){
+Route::controller(SettingController::class)->group(function () {
     //get
-    Route::get('/smtp/setting','SmtpSetting')->name('smtp.setting');
+    Route::get('/smtp/setting', 'SmtpSetting')->name('smtp.setting');
     //post
-    Route::post('/update/smtp','SmtpUpdate')->name('update.smtp');
-    Route::post('/update/smtp','SmtpSetting')->name('update.smtp');
-
+    Route::post('/update/smtp', 'SmtpUpdate')->name('update.smtp');
+    Route::post('/update/smtp', 'SmtpSetting')->name('update.smtp');
 });
-Route::controller(OrderController::class)->group(function(){
+Route::controller(OrderController::class)->group(function () {
     //get
-    Route::get('/admin/order/details/{id}','AdminOrderDetails')->name('admin.order.details');
-    Route::get('/admin/pending/order','AdminPendingOrder')->name('admin.pending.order');
-    Route::get('/admin/order/details/{id}','AdminOrderDetails')->name('admin.order.details');
-    Route::get('/pending-confrim/{id}','PendingToConfirm')->name('pending-confrim');
-    Route::get('/admin/confirm/order','AdminConfirmOrder')->name('admin.confirm.order');
-    Route::get('/instructor/all/order','InstructorAllOrder')->name('instructor.all.order');
-    Route::get('/instructor/order/details/{payment_id}','InstructorOrderDetails')->name('instructor.order.details');
-    Route::get('/my/course','MyCourse')->name('my.course');
-    Route::get('/instructor/order/invoice/{payment_id}','InstructorOrderInvoice')->name('instructor.order.invoice');
+    Route::get('/admin/order/details/{id}', 'AdminOrderDetails')->name('admin.order.details');
+    Route::get('/admin/pending/order', 'AdminPendingOrder')->name('admin.pending.order');
+    Route::get('/admin/order/details/{id}', 'AdminOrderDetails')->name('admin.order.details');
+    Route::get('/pending-confrim/{id}', 'PendingToConfirm')->name('pending-confrim');
+    Route::get('/admin/confirm/order', 'AdminConfirmOrder')->name('admin.confirm.order');
+    Route::get('/instructor/all/order', 'InstructorAllOrder')->name('instructor.all.order');
+    Route::get('/instructor/order/details/{payment_id}', 'InstructorOrderDetails')->name('instructor.order.details');
+    Route::get('/my/course', 'MyCourse')->name('my.course');
+    Route::get('/instructor/order/invoice/{payment_id}', 'InstructorOrderInvoice')->name('instructor.order.invoice');
     //FOR COURSE VIEW TO USER
-    Route::get('/course/view/{course_id}','CourseView')->name('course.view');
+    Route::get('/course/view/{course_id}', 'CourseView')->name('course.view');
 });
-Route::controller(ReportController::class)->group(function(){
-    Route::get('/report/view','ReportView')->name('report.view');
-
+Route::controller(ReportController::class)->group(function () {
+    Route::get('/report/view', 'ReportView')->name('report.view');
 });
-Route::controller(ActiveUserController::class)->group(function(){
-    Route::get('/all/user','AllUser')->name('all.user');
-    Route::get('/all/instructor','AllInstructor')->name('all.instructor');
+Route::controller(ActiveUserController::class)->group(function () {
+    Route::get('/all/user', 'AllUser')->name('all.user');
+    Route::get('/all/instructor', 'AllInstructor')->name('all.instructor');
 });
-Route::controller(CouponController::class)->group(function(){
-    Route::get('/admin/all/coupon','AdminAllCoupon')->name('admin.all.coupon');
-    Route::get('/admin/add/coupon','AdminAddCoupon')->name('admin.add.coupon');
-    Route::post('/admin/store/coupon','AdminStoreCoupon')->name('admin.store.coupon');
-    Route::get('/admin/edit/coupon/{id}','AdminEditCoupon')->name('admin.edit.coupon');
-    Route::post('/admin/update/coupon','AdminUpdateCoupon')->name('admin.update.coupon');
-    Route::get('/admin/delete/coupon/{id}','AdminDeleteCoupon')->name('admin.delete.coupon');
+Route::controller(CouponController::class)->group(function () {
+    Route::get('/admin/all/coupon', 'AdminAllCoupon')->name('admin.all.coupon');
+    Route::get('/admin/add/coupon', 'AdminAddCoupon')->name('admin.add.coupon');
+    Route::post('/admin/store/coupon', 'AdminStoreCoupon')->name('admin.store.coupon');
+    Route::get('/admin/edit/coupon/{id}', 'AdminEditCoupon')->name('admin.edit.coupon');
+    Route::post('/admin/update/coupon', 'AdminUpdateCoupon')->name('admin.update.coupon');
+    Route::get('/admin/delete/coupon/{id}', 'AdminDeleteCoupon')->name('admin.delete.coupon');
 });
-Route::controller(QuestionController::class)->group(function(){
-    Route::post('/user/question','UserQuestion')->name('user.question');
-
+Route::controller(QuestionController::class)->group(function () {
+    //post
+    Route::post('/user/question', 'UserQuestion')->name('user.question');
+    Route::post('/instructor/replay', 'InstructorReplay')->name('instructor.replay');
+    //get
+    Route::get('/instructor/all/question', 'InstructorAllQuestion')->name('instructor.all.question');
+    Route::get('/question/details/{id}', 'QuestionDetails')->name('question.details');
 });

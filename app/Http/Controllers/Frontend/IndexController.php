@@ -51,5 +51,8 @@ class IndexController extends Controller
         $categories = Category::latest()->get();
         return view('frontend.category.subcategory_all', compact('courses', 'subcategory', 'categories'));
     } // End Method
+    public function AboutUS(){
+        return view('frontend.aboutus.about_us');
+    }// End Method
 
 }

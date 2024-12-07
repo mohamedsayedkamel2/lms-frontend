@@ -24,6 +24,7 @@
                     <span class="section-divider section--divider"></span>
                     <ul class="generic-list-item">
                         <li><a href="{{ route('become.instructor') }}">Become a Teacher</a></li>
+                        <li><a href="{{ route('index.about-us') }}">about us</a></li>
                     </ul>
                 </div><!-- end footer-item -->
             </div><!-- end col-lg-3 -->

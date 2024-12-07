@@ -8,6 +8,7 @@ use App\Models\Coupon;
 use App\Models\Course;
 use App\Models\Payment;
 use App\Models\Category;
+use App\Models\Question;
 use App\Models\Course_goal;
 use App\Models\SubCategory;
 use Illuminate\Http\Request;
@@ -100,11 +101,12 @@ class OrderController extends Controller
     }// End Method
     public function CourseView($course_id){
         $id = Auth::user()->id;
-
+        $allquestion = Question::latest()->get();
         $course = Order::where('course_id',$course_id)->where('user_id',$id)->first();
         $section = CourseSection::where('course_id',$course_id)->orderBy('id','asc')->get();
+        return view('frontend.mycourse.course_view',compact('course','section','allquestion'));
 
-        return view('frontend.mycourse.course_view',compact('course','section'));
+
 
 
     }// End Method
