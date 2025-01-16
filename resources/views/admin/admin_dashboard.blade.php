@@ -12,6 +12,7 @@
     <link href="{{ asset('back-end/assets/plugins/simplebar/css/simplebar.css') }}" rel="stylesheet" />
     <link href="{{ asset('back-end/assets/plugins/perfect-scrollbar/css/perfect-scrollbar.css') }}" rel="stylesheet" />
     <link href="{{ asset('back-end/assets/plugins/metismenu/css/metisMenu.min.css') }}" rel="stylesheet" />
+    <link href="{{ asset('back-end/assets/plugins/input-tags/css/tagsinput.css') }}" rel="stylesheet" />
     <!-- loader-->
     <link href="{{ asset('back-end/assets/css/pace.min.css') }}" rel="stylesheet" />
     <script src="{{ asset('back-end/assets/js/pace.min.js') }}"></script>
@@ -65,6 +66,7 @@
     <!-- Bootstrap JS -->
     <script src="{{ asset('back-end/assets/js/bootstrap.bundle.min.js') }}"></script>
     <!--plugins-->
+    <script src="{{ asset('backend/assets/plugins/input-tags/js/tagsinput.js') }}"></script>
     <script src="{{ asset('back-end/assets/js/jquery.min.js') }}"></script>
     <script src="{{ asset('back-end/assets/plugins/simplebar/js/simplebar.min.js') }}"></script>
     <script src="{{ asset('back-end/assets/plugins/metismenu/js/metisMenu.min.js') }}"></script>
@@ -115,6 +117,14 @@
                     break;
             }
         @endif
+    </script>
+    <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
+    <script>
+        tinymce.init({
+            selector: 'textarea#myeditorinstance', // Replace this CSS selector to match the placeholder element for TinyMCE
+            plugins: 'powerpaste advcode table lists checklist',
+            toolbar: 'undo redo | blocks| bold italic | bullist numlist checklist | code | table'
+        });
     </script>
 
 

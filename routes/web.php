@@ -11,12 +11,15 @@ use App\Http\Controllers\Frontend\CartController;
 use App\Http\Controllers\Backend\CouponController;
 use App\Http\Controllers\Backend\CourseController;
 use App\Http\Controllers\Backend\ReportController;
+use App\Http\Controllers\Backend\ReviewController;
 use App\Http\Controllers\Frontend\IndexController;
 use App\Http\Controllers\Backend\SettingController;
 use App\Http\Controllers\Backend\CategoryController;
 use App\Http\Controllers\Backend\QuestionController;
 use App\Http\Controllers\Frontend\WishListController;
 use App\Http\Controllers\Backend\ActiveUserController;
+use App\Http\Controllers\BlogController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -162,6 +165,8 @@ Route::controller(CartController::class)->group(function () {
 
     Route::get('/coupon-remove',  'CouponRemove');
     Route::get('/coupon-calculation', 'CouponCalculation');
+    //coupon for user
+    Route::post('/inscoupon-apply',  'InsCouponApply');
 });
 
 Route::post('/add-to-wishlist/{course_id}', [WishListController::class, 'AddToWishList']);
@@ -203,7 +208,13 @@ Route::controller(OrderController::class)->group(function () {
     Route::get('/course/view/{course_id}', 'CourseView')->name('course.view');
 });
 Route::controller(ReportController::class)->group(function () {
+    //get
     Route::get('/report/view', 'ReportView')->name('report.view');
+    //post
+    Route::post('/search/by/date','SearchByDate')->name('search.by.date');
+    Route::post('/search/by/month','SearchByMonth')->name('search.by.month');
+    Route::post('/search/by/year','SearchByYear')->name('search.by.year');
+
 });
 Route::controller(ActiveUserController::class)->group(function () {
     Route::get('/all/user', 'AllUser')->name('all.user');
@@ -221,7 +232,50 @@ Route::controller(QuestionController::class)->group(function () {
     //post
     Route::post('/user/question', 'UserQuestion')->name('user.question');
     Route::post('/instructor/replay', 'InstructorReplay')->name('instructor.replay');
+
     //get
     Route::get('/instructor/all/question', 'InstructorAllQuestion')->name('instructor.all.question');
     Route::get('/question/details/{id}', 'QuestionDetails')->name('question.details');
+
 });
+// Instructor Coupon  Route
+Route::controller(CouponController::class)->group(function(){
+    //get
+    Route::get('/instructor/delete/coupon/{id}','InstructorDeleteCoupon')->name('instructor.delete.coupon');
+    Route::get('/instructor/all/coupon','InstructorAllCoupon')->name('instructor.all.coupon');
+    Route::get('/instructor/add/coupon','InstructorAddCoupon')->name('instructor.add.coupon');
+    Route::get('/instructor/edit/coupon/{id}','InstructorEditCoupon')->name('instructor.edit.coupon');
+    //post
+    Route::post('/instructor/update/coupon','InstructorUpdateCoupon')->name('instructor.update.coupon');
+    Route::post('/instructor/store/coupon','InstructorStoreCoupon')->name('instructor.store.coupon');
+    
+});
+Route::controller(ReviewController::class)->group(function(){
+    //review for main page 
+    Route::post('/store/review',  'StoreReview')->name('store.review');
+    //review for admin 
+    Route::get('/admin/pending/review','AdminPendingReview')->name('admin.pending.review'); 
+    Route::post('/update/review/stauts','UpdateReviewStatus')->name('update.review.stauts'); 
+    Route::get('/admin/active/review','AdminActiveReview')->name('admin.active.review');
+
+    //review for instructor 
+    Route::get('/instructor/all/review','InstructorAllReview')->name('instructor.all.review');  
+    //review for instructor 
+
+});
+//blog controller
+Route::controller(BlogController::class)->group(function(){
+    Route::get('/blog/category','AllBlogCategory')->name('blog.category');  
+    Route::post('/blog/category/store','StoreBlogCategory')->name('blog.category.store'); 
+    Route::post('/blog/category/update','UpdateBlogCategory')->name('blog.category.update'); 
+    Route::get('/delete/blog/category/{id}','DeleteBlogCategory')->name('delete.blog.category'); 
+    //for user interface
+    Route::get('/blog/post','BlogPost')->name('blog.post'); 
+    Route::get('/add/blog/post','AddBlogPost')->name('add.blog.post'); 
+    Route::post('/store/blog/post','StoreBlogPost')->name('store.blog.post'); 
+    Route::post('/store/blog/post','StoreBlogPost')->name('store.blog.post');
+    Route::get('/edit/post/{id}','EditBlogPost')->name('edit.post');  
+    Route::post('/update/blog/post','UpdateBlogPost')->name('update.blog.post');
+    Route::get('/delete/post/{id}','DeleteBlogPost')->name('delete.post');  
+});
+

@@ -11,14 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('coupons', function (Blueprint $table) {
+        Schema::create('blog_posts', function (Blueprint $table) {
             $table->id();
-            $table->string('coupon_name');
-            $table->string('coupon_discount');
-            $table->string('coupon_validity');
-            $table->integer('status')->default(1);
-            $table->integer('instructor_id')->nullable();
-            $table->integer('course_id')->nullable();
+            $table->integer('blogcat_id');
+            $table->string('post_title')->nullable();
+            $table->string('post_slug')->nullable();
+            $table->string('post_image')->nullable();
+            $table->text('long_descp')->nullable();
+            $table->string('post_tags')->nullable(); 
             $table->timestamps();
         });
     }
@@ -28,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('coupons');
+        Schema::dropIfExists('blog_posts');
     }
 };

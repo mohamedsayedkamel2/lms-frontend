@@ -4,10 +4,12 @@ namespace App\Http\Controllers\Backend;
 
 use Carbon\Carbon;
 use App\Models\Coupon;
-use App\Models\SubCategory;
+use App\Models\Course;
 
+use App\Models\SubCategory;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use Intervention\Image\Facades\Image;
 
 class CouponController extends Controller
@@ -65,4 +67,31 @@ class CouponController extends Controller
         );
         return redirect()->back()->with($notification);
     } /// End Method
+    public function InstructorAllCoupon(){
+        $id = Auth::user()->id;
+        $coupon = Coupon::where('instructor_id',$id)->latest()->get();
+        return view('instructor.coupon.coupon_all',compact('coupon'));
+
+    }/// End Method
+    public function InstructorAddCoupon(){
+        $id = Auth::user()->id;
+        $courses = Course::where('instructor_id',$id)->get();
+        return view('instructor.coupon.coupon_add',compact('courses'));
+    }// End Method
+    public function InstructorStoreCoupon(Request $request){
+
+        Coupon::insert([
+            'coupon_name' => strtoupper($request->coupon_name),
+            'coupon_discount' => $request->coupon_discount,
+            'coupon_validity' => $request->coupon_validity,
+            'instructor_id' => Auth::user()->id,
+            'course_id' => $request->course_id,
+            'created_at' => Carbon::now(),
+        ]);
+        $notification = array(
+            'message' => 'Coupon Inserted Successfully',
+            'alert-type' => 'success'
+        );
+        return redirect()->route('instructor.all.coupon')->with($notification);
+    }// End Method 
 }
