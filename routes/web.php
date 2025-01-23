@@ -18,6 +18,7 @@ use App\Http\Controllers\Backend\CategoryController;
 use App\Http\Controllers\Backend\QuestionController;
 use App\Http\Controllers\Frontend\WishListController;
 use App\Http\Controllers\Backend\ActiveUserController;
+use App\Http\Controllers\Backend\RoleController;
 use App\Http\Controllers\BlogController;
 
 /*
@@ -277,5 +278,42 @@ Route::controller(BlogController::class)->group(function(){
     Route::get('/edit/post/{id}','EditBlogPost')->name('edit.post');  
     Route::post('/update/blog/post','UpdateBlogPost')->name('update.blog.post');
     Route::get('/delete/post/{id}','DeleteBlogPost')->name('delete.post');  
+    Route::get('/blog/details/{slug}','BlogDetails');
+    Route::get('/blog/cat/list/{id}', 'BlogCatList');
+    Route::get('/blog', 'BlogList')->name('blog');
+});
+//for notification system
+Route::post('/mark-notification-as-read/{notification}', [CartController::class, 'MarkAsRead']);
+
+//for notification 
+Route::controller(SettingController::class)->group(function(){
+    Route::get('/site/setting','SiteSetting')->name('site.setting'); 
+    Route::post('/update/site','UpdateSite')->name('update.site'); 
 });
 
+Route::controller(RoleController::class)->group(function(){
+    Route::get('/all/permission','AllPermission')->name('all.permission'); 
+    Route::get('/add/permission','AddPermission')->name('add.permission');
+    Route::post('/store/permission','StorePermission')->name('store.permission'); 
+    Route::get('/edit/permission/{id}','EditPermission')->name('edit.permission');
+    Route::post('/update/permission','UpdatePermission')->name('update.permission');
+    Route::get('/delete/permission/{id}','DeletePermission')->name('delete.permission');
+    //for excel
+    Route::get('/import/permission','ImportPermission')->name('import.permission');
+    Route::get('/export','Export')->name('export');
+    Route::post('/import','Import')->name('import');
+    //role mangement 
+    Route::get('/all/roles','AllRoles')->name('all.roles');
+    Route::get('/add/roles','AddRoles')->name('add.roles'); 
+    Route::post('/store/roles','StoreRoles')->name('store.roles'); 
+    Route::get('/edit/roles/{id}','EditRoles')->name('edit.roles');
+    Route::post('/update/roles','UpdateRoles')->name('update.roles');
+    Route::get('/delete/roles/{id}','DeleteRoles')->name('delete.roles');  
+    Route::get('/add/roles/permission','AddRolesPermission')->name('add.roles.permission');
+    Route::post('/role/permission/store','RolePermissionStore')->name('role.permission.store');
+    Route::get('/all/roles/permission','AllRolesPermission')->name('all.roles.permission');
+    Route::get('/admin/edit/roles/{id}','AdminEditRoles')->name('admin.edit.roles');
+    Route::post('/admin/roles/update/{id}','AdminUpdateRoles')->name('admin.roles.update');
+    Route::get('/admin/delete/roles/{id}','AdminDeleteRoles')->name('admin.delete.roles');
+});
+//

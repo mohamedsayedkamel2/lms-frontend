@@ -1,6 +1,9 @@
 @extends('frontend.master')
 @section('home')
 
+@section('title')
+Easy learning
+@endsection
 @include('frontend.home.hero')
 
 <!--======================================

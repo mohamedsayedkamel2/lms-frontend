@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
-
+    <title>@yield('title') </title>
 <head>
     <meta http-equiv="content-type" content="text/html; charset=utf-8">
     <meta name="author" content="TechyDevs">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
-    <title>Easy Learning </title>
+    <title> @yield('title') </title>
 
     <!-- Google fonts -->
     <link rel="preconnect" href="https://fonts.gstatic.com">

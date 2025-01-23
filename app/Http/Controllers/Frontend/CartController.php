@@ -3,11 +3,12 @@
 namespace App\Http\Controllers\Frontend;
 
 use Carbon\Carbon;
+use App\Models\User;
 use App\Models\Order;
 use App\Models\Coupon;
 use App\Models\Course;
-use App\Models\Category;
 use App\Models\Payment;
+use App\Models\Category;
 use App\Mail\Orderconfirm;
 use App\Models\Course_goal;
 use App\Models\SubCategory;
@@ -15,11 +16,13 @@ use Illuminate\Http\Request;
 use App\Models\CourseLecture;
 use App\Models\CourseSection;
 use App\Http\Controllers\Controller;
+use App\Notifications\OrderComplete;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use Intervention\Image\Facades\Image;
-use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Support\Facades\Session;
+use Gloudemans\Shoppingcart\Facades\Cart;
+use Illuminate\Support\Facades\Notification;
 
 class CartController extends Controller
 {
@@ -174,6 +177,7 @@ class CartController extends Controller
     public function Payment(Request $request)
     {
 
+        $user = User::where('role','instructor')->get();
 
         $total_amount = round(Cart::total());
 
@@ -237,7 +241,11 @@ class CartController extends Controller
 
 
         /// End Send email to student ///
-        Mail::to($request->email)->send(new Orderconfirm($data));
+        Mail::to($request->email)->send(new Orderconfirm($data)); 
+        /// End Send email to student /// 
+
+        /// Send Notification 
+        Notification::send($user, new OrderComplete($request->name));
 
 
         if ($request->cash_delivery == 'stripe') {
@@ -364,4 +372,12 @@ class CartController extends Controller
             return response()->json(['error' => 'Invalid Coupon']);
         }
     }
+    public function MarkAsRead(Request $request, $notificationId){
+        $user = Auth::user();
+        $notification = $user->notifications()->where('id',$notificationId)->first();
+        if ($notification) {
+            $notification->markAsRead();
+        }
+        return response()->json(['count' => $user->unreadNotifications()->count()]);
+    }// End Method 
 }
