@@ -85,7 +85,8 @@ require __DIR__ . '/auth.php';
 //category
 Route::controller(CategoryController::class)->group(function () {
     //get
-    Route::get('/all/category', 'AllCategory')->name('all.category');
+    
+    Route::get('/all/category', 'AllCategory')->name('all.category')->middleware('permission:category.all');
     Route::get('/add/category', 'AddCategory')->name('add.category');
     Route::get('/edit/category/{id}', 'EditCategory')->name('edit.category');
     Route::get('/delete/category/{id}', 'DeleteCategory')->name('delete.category');
@@ -96,7 +97,7 @@ Route::controller(CategoryController::class)->group(function () {
 //subcategory
 Route::controller(CategoryController::class)->group(function () {
     //get
-    Route::get('/all/subcategory', 'AllSubCategory')->name('all.subcategory');
+    Route::get('/all/subcategory', 'AllSubCategory')->name('all.subcategory')->middleware('permission:subcategory.all');
     Route::get('/add/subcategory', 'AddSubCategory')->name('add.subcategory');
     Route::get('/edit/subcategory/{id}', 'EditSubCategory')->name('edit.subcategory');
     Route::get('/delete/subcategory/{id}', 'DeleteSubCategory')->name('delete.subcategory');
@@ -316,4 +317,13 @@ Route::controller(RoleController::class)->group(function(){
     Route::post('/admin/roles/update/{id}','AdminUpdateRoles')->name('admin.roles.update');
     Route::get('/admin/delete/roles/{id}','AdminDeleteRoles')->name('admin.delete.roles');
 });
-//
+//// Admin User for All Route 
+Route::controller(AdminController::class)->group(function(){
+    Route::get('/all/admin','AllAdmin')->name('all.admin');  
+    Route::get('/all/admin','AllAdmin')->name('all.admin'); 
+    Route::get('/add/admin','AddAdmin')->name('add.admin');
+    Route::post('/store/admin','StoreAdmin')->name('store.admin'); 
+    Route::get('/edit/admin/{id}','EditAdmin')->name('edit.admin');
+    Route::post('/update/admin/{id}','UpdateAdmin')->name('update.admin'); 
+    Route::get('/delete/admin/{id}','DeleteAdmin')->name('delete.admin'); 
+});

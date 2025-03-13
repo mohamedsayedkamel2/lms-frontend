@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Course;
 use Illuminate\Http\Request;
+use Spatie\Permission\Models\Role;
 use Illuminate\Foundation\Auth\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -161,11 +162,47 @@ class AdminController extends Controller
 
     }// End Method
     public function AdminCourseDetails($id){
-        $course = Course::find($id);
+        $course =    Course::find($id);
         return view('admin.backend.courses.course_details',compact("course"));
     }
+    public function AllAdmin(){
+        $alladmin = User::where('role','admin')->get();
+        return view('admin.backend.pages.admin.all_admin',compact('alladmin'));
+    }// End Method
 
-
-
-
+    public function AddAdmin(){
+        $roles = Role::all();
+        return view('admin.backend.pages.admin.add_admin',compact('roles'));
+    }// End Method
+    public function StoreAdmin(Request $request){
+        $user = new User();
+        $user->username = $request->username;
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->phone = $request->phone;
+        $user->address = $request->address;
+        $user->password = Hash::make($request->password);
+        $user->role = 'admin';
+        $user->status = '1';
+        $user->save();
+        if ($request->roles) {
+            $user->assignRole($request->roles);
+        }
+        $notification = array(
+            'message' => 'New Admin Inserted Successfully',
+            'alert-type' => 'success'
+        );
+        return redirect()->route('all.admin')->with($notification); 
+    }// End Method
+    public function DeleteAdmin($id){
+        $user = User::find($id);
+        if (!is_null($user)) {
+            $user->delete();
+        }
+        $notification = array(
+            'message' => 'Admin Deleted Successfully',
+            'alert-type' => 'success'
+        );
+        return redirect()->back()->with($notification); 
+    }// End Method
 }

@@ -2,17 +2,18 @@
 
 namespace App\Http\Controllers\Frontend;
 
-use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
-use App\Models\Category;
-use App\Models\SubCategory;
-use App\Models\Course;
-use App\Models\Course_goal;
-use App\Models\CourseSection;
-use App\Models\CourseLecture;
-use Intervention\Image\Facades\Image;
-use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
+use App\Models\User;
+use App\Models\Course;
+use App\Models\Category;
+use App\Models\Course_goal;
+use App\Models\SubCategory;
+use Illuminate\Http\Request;
+use App\Models\CourseLecture;
+use App\Models\CourseSection;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
+use Intervention\Image\Facades\Image;
 
 class IndexController extends Controller
 {
@@ -54,5 +55,12 @@ class IndexController extends Controller
     public function AboutUS(){
         return view('frontend.aboutus.about_us');
     }// End Method
+    public function InstructorDetails($id){
+
+        $instructor = User::find($id);
+        $courses = Course::where('instructor_id',$id)->get();
+        return view('frontend.instructor.instructor_details',compact('instructor','courses'));
+
+    }// End Method 
 
 }

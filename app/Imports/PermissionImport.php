@@ -19,4 +19,5 @@ class PermissionImport implements ToModel
             'group_name'    => $row[1], 
         ]);
     }
+    
 }

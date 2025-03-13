@@ -46,5 +46,16 @@ class userTableSeeder extends Seeder
 
             ],
         ]);
+        DB::table('smtpSetting')->insert([
+            'id' => '1',
+            'mailer' => 'user@gmail.com',
+            'host' => 'hello@gmail.com',
+            'port' => '25',
+            'username' => 'hello@gmail.com',
+            'password' => 'hello@gmail.com',
+            'encryption' => 'hello@gmail.com',
+            'from_address' => 'hello@gmail.com',
+        ]);
     }
+    
 }

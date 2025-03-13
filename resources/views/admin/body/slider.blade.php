@@ -24,33 +24,44 @@
 
         <li class="menu-label">UI Elements</li>
 
-        <li>
-            <a href="javascript:;" class="has-arrow">
-                <div class="parent-icon"><i class='bx bx-cart'></i>
-                </div>
-                <div class="menu-title">Manage Category</div>
-            </a>
-            <ul>
-                <li> <a href="{{ route('all.category') }}"><i class='bx bx-radio-circle'></i>All Category </a>
-                </li>
-                <li> <a href="{{ route('all.subcategory') }}"><i class='bx bx-radio-circle'></i>All SubCategory </a>
-                </li>
+        @if (Auth::user()->can('category.menu'))
+            <li>
+                <a href="javascript:;" class="has-arrow">
+                    <div class="parent-icon"><i class='bx bx-cart'></i>
+                    </div>
+                    <div class="menu-title">Manage Category</div>
+                </a>
+                <ul>
+                    @if (Auth::user()->can('category.all'))
+                        <li> <a href="{{ route('all.category') }}"><i class='bx bx-radio-circle'></i>All Category </a>
+                        </li>
+                    @endif
+                    @if (Auth::user()->can('subcategory.all'))
+                        <li> <a href="{{ route('all.subcategory') }}"><i class='bx bx-radio-circle'></i>All SubCategory
+                            </a>
+                        </li>
+                    @endif
 
-            </ul>
-        </li>
-        <li>
-            <a class="has-arrow" href="javascript:;">
-                <div class="parent-icon"><i class='bx bx-bookmark-heart'></i>
-                </div>
-                <div class="menu-title">Manage Instructor</div>
-            </a>
-            <ul>
-                <li> <a href="{{ route('all.instructor') }}"><i class='bx bx-radio-circle'></i>All Instructor</a>
-                </li>
+                </ul>
+            </li>
+        @endif
 
 
-            </ul>
-        </li>
+        @if (Auth::user()->can('instructor.menu'))
+            <li>
+                <a class="has-arrow" href="javascript:;">
+                    <div class="parent-icon"><i class='bx bx-bookmark-heart'></i>
+                    </div>
+                    <div class="menu-title">Manage Instructor</div>
+                </a>
+                <ul>
+                    <li> <a href="{{ route('all.instructor') }}"><i class='bx bx-radio-circle'></i>All Instructor</a>
+                    </li>
+
+
+                </ul>
+            </li>
+        @endif
 
 
         <li>
@@ -202,8 +213,25 @@
                 <li> <a href="{{ route('add.roles.permission') }}"><i class='bx bx-radio-circle'></i>Role In
                         Permission</a>
                 </li>
+                <li> <a href="{{ route('all.roles.permission') }}"><i class='bx bx-radio-circle'></i>All Role In
+                        Permission</a>
+                </li>
+
             </ul>
         </li>
+
+        <li>
+            <a class="has-arrow" href="javascript:;">
+                <div class="parent-icon"><i class="bx bx-line-chart"></i>
+                </div>
+                <div class="menu-title">Manage Admin</div>
+            </a>
+            <ul>
+                <li> <a href="{{ route('all.admin') }}"><i class='bx bx-radio-circle'></i>All Admin</a>
+                </li>
+            </ul>
+        </li>
+
         <li>
             <a class="has-arrow" href="javascript:;">
                 <div class="parent-icon"><i class="bx bx-map-alt"></i>

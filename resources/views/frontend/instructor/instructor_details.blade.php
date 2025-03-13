@@ -17,7 +17,13 @@
                     <span class="d-block lh-18 pt-1 pb-2">Joined {{ Carbon\Carbon::parse($instructor->created_at)->diffForHumans()  }}</span>
                     <p class="lh-18">{{ $instructor->email }}</p>
                 </div>
+                
             </div><!-- end media -->
+
+            <div id="app">
+                <send-message></send-message>
+            </div>
+
             <ul class="social-icons social-icons-styled social--icons-styled">
                 <li><a href="#"><i class="la la-facebook"></i></a></li>
                 <li><a href="#"><i class="la la-twitter"></i></a></li>

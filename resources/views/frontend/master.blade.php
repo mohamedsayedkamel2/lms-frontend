@@ -8,7 +8,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
     <title> @yield('title') </title>
-
+    @vite(['resources/js/app.js'])    
     <!-- Google fonts -->
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800&display=swap"
@@ -121,6 +121,9 @@
                     break;
             }
         @endif
+
+        @vite(['resources/js/app.js'])
+
     </script>
 
 
